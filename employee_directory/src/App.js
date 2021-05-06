@@ -27,6 +27,15 @@ class App extends Component {
     });
   };
 
+  filterAmericans = () => {
+    let filteredEmps;
+    filteredEmps = this.state.employees.filter(employee => employee.location.country !== "United States" && employee.location.country !== "Canada" && employee.location.country !== "Mexico")
+
+    this.setState({
+      employees: filteredEmps,
+    });
+  }
+
   change = (event) => {
     switch(event.target.value){
       case "ascending":
@@ -34,6 +43,9 @@ class App extends Component {
         break;
       case "descending":
         this.sortByNameDsc()
+        break;
+      case "nusa":
+        this.filterAmericans()
         break;
       default:
         this.getEmps()
@@ -63,7 +75,7 @@ class App extends Component {
           <option value="DEFAULT" disabled>Sort by ...</option>
           <option value="ascending">Last Name Ascending</option>
           <option value="descending">Last Name Descending</option>
-          <option value="nusa">Lives Outside USA</option>
+          <option value="nusa">Lives Outside North America</option>
         </select>
         {this.state.employees.map((employee) => (
           <EmpCard
