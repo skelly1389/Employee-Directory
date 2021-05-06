@@ -11,9 +11,7 @@ class App extends Component {
 
   sortByNameAsc = () => {
     let sortedEmpsAsc;
-    sortedEmpsAsc = this.state.employees.sort((a, b) => {
-      return a.name.last - b.name.last;
-    });
+    sortedEmpsAsc = this.state.employees.sort((a, b) => (a.name.last > b.name.last) ? 1 : -1)
 
     this.setState({
       employees: sortedEmpsAsc,
@@ -22,14 +20,26 @@ class App extends Component {
 
   sortByNameDsc = () => {
     let sortedEmpsDsc;
-    sortedEmpsDsc = this.state.employees.sort((a, b) => {
-      return b.name.last - a.name.last;
-    });
+    sortedEmpsDsc = this.state.employees.sort((a, b) => (a.name.last > b.name.last) ? -1 : 1)
 
     this.setState({
       employees: sortedEmpsDsc,
     });
   };
+
+  change = (event) => {
+    switch(event.target.value){
+      case "ascending":
+        this.sortByNameAsc()
+        break;
+      case "descending":
+        this.sortByNameDsc()
+        break;
+      default:
+        this.getEmps()
+        break;
+    }
+  }
 
   componentDidMount() {
     this.getEmps();
@@ -49,10 +59,11 @@ class App extends Component {
     return (
       <Wrapper>
         <Title>Employee List</Title>
-        <select>
-          <option value="albums">Last Name Ascending</option>
-          <option value="members">Last Name Descending</option>
-          <option value="formed">Lives Outside USA</option>
+        <select id="sorter" onChange={this.change} value={this.state.value} defaultValue={"DEFAULT" } >
+          <option value="DEFAULT" disabled>Sort by ...</option>
+          <option value="ascending">Last Name Ascending</option>
+          <option value="descending">Last Name Descending</option>
+          <option value="nusa">Lives Outside USA</option>
         </select>
         {this.state.employees.map((employee) => (
           <EmpCard
