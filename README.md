@@ -20,7 +20,7 @@ Using react and a simple api call creates a one page directory of random employe
 Loading the page presents 12 randomly generated employees. Using the drop-down on the top right the user can sort by last name or filter out employees who work in north america.
 
     :
-![Page in action](./public/screenshot.png)
+![Page in action](./employee_directory/public/screenshot.png)
 
 ## Credits
 
